@@ -1,65 +1,58 @@
-# Pošiljke Parketa - Java Application
+# Parquet Shipments - Java Application
 
-Ovo je Java desktop aplikacija zasnovana na **Klijent-Server** arhitekturi, namenjena praćenju i upravljanju pošiljkama parketa. Projekat prikazuje simulaciju distribuiranog sistema gde višestruki klijenti komuniciraju sa centralnim serverom radi obrade i skladištenja podataka u bazu.
+This is a Java desktop application based on a **Client-Server** architecture, designed for tracking and managing parquet shipments. The project demonstrates a simulation of a distributed system where multiple clients communicate with a central server for data processing and database persistence.
 
----
+## 🛠 Technologies and Dependencies
 
-## 🛠 Tehnologije i Biblioteke
+* **Language:** Java (JDK 8+)
+* **Database:** MySQL / MariaDB
+* **Networking:** Java Sockets (Client-Server communication)
+* **GUI:** Java Swing / AWT
+* **External Libraries:**
+  * `mysql-connector-j` – JDBC driver for MySQL database connectivity.
+  * `jcalendar` – Swing components for date selection.
+  * `json` – JSON parsing library.
 
-* **Jezik:** Java (JDK 8+)
-* **Baza podataka:** MySQL / MariaDB
-* **Komunikacija:** Sockets / Networking (Klijent-Server komunikacija)
-* **Korisnički interfejs:** Java Swing / AWT
-* **Dodatne biblioteke:**
-  * `mysql-connector-j` – JDBC drajver za konekciju sa MySQL bazom.
-  * `jcalendar` – Swing komponente za odabir datuma.
-  * `json` – Biblioteka za rad sa JSON formatom podataka.
+## 📁 Project Structure
 
----
-
-## 📁 Struktura Projekta
-
-Projekat je podeljen na tri glavne komponente (modula) i prateće resurse:
+The project is structured into three main modules and supporting files:
 
 ```
-├── 1_PosiljkeParketa_Client/    # Klijentska aplikacija (GUI i logika klijenta)
-├── 1_PosiljkeParketa_Server/    # Serverska aplikacija (Obrada zahteva i rad sa bazom)
-├── PosiljkeParketa_Common/     # Zajednički modeli, klase i transfer objekti (DTO)
-├── mysql-connector-j-9.1.0/    # MySQL JDBC drajver
-├── jcalendar-1.4.jar           # Biblioteka za odabir datuma u GUI-ju
-├── json-20200518.jar           # JSON parser
-└── posiljkeBaza.sql            # SQL skripta za kreiranje strukture baze i početnih podataka
+├── 1_PosiljkeParketa_Client/    # Client application (GUI and client-side logic)
+├── 1_PosiljkeParketa_Server/    # Server application (Request handling & DB management)
+├── PosiljkeParketa_Common/     # Shared models, utilities, and Data Transfer Objects (DTO)
+├── mysql-connector-j-9.1.0/    # MySQL JDBC Driver
+├── jcalendar-1.4.jar           # Date picker library
+├── json-20200518.jar           # JSON library
+└── posiljkeBaza.sql            # SQL dump for database initialization
 ```
 
----
+## ⚙️ Setup and Execution
 
-## ⚙️ Podešavanje i Pokretanje
+### 1. Database Setup
 
-### 1. Priprema baze podataka
-1. Pokrenite vaš lokalni MySQL server (npr. preko XAMPP-a, WAMP-a ili samostalnog MySQL servisa).
-2. Uvezite (importujte) fajl `posiljkeBaza.sql` u vaš MySQL DBMS kako biste kreirali potrebnu bazu i tabele:
+1. Start your local MySQL server (e.g., via XAMPP, WAMP, or a standalone MySQL instance).
+2. Import the `posiljkeBaza.sql` file into your MySQL DBMS to generate the schema and seed data:
    ```bash
    mysql -u root -p < posiljkeBaza.sql
    ```
 
-### 2. Konfiguracija konekcije
-Uverite se da su u serverskom delu aplikacije (`1_PosiljkeParketa_Server`) podešeni odgovarajući podaci za konekciju na vašu lokalnu bazu (URL, username, password).
+### 2. Connection Configuration
 
-### 3. Redosled pokretanja
-1. **Pokrenite Server:** Najpre pokrenite serversku aplikaciju (`1_PosiljkeParketa_Server`). Server će se pokrenuti i slušati dolazne konekcije klijenata na definisanom portu.
-2. **Pokrenite Klijenta:** Nakon što je server aktivan, pokrenite klijentsku aplikaciju (`1_PosiljkeParketa_Client`) kako biste pristupili korisničkom interfejsu.
+Ensure that the database credentials (URL, username, password) inside the server project (`1_PosiljkeParketa_Server`) match your local database settings.
 
----
+### 3. Execution Order
 
-## 📝 Funkcionalnosti
+1. **Start the Server:** Launch the `1_PosiljkeParketa_Server` application first. It will listen for incoming client socket connections.
+2. **Start the Client:** Once the server is running, launch the `1_PosiljkeParketa_Client` application to access the user interface.
 
-* Logovanje i autentifikacija korisnika.
-* Unos, izmena i pregled pošiljki parketa.
-* Višenitna obrada klijentskih zahteva na serveru.
-* Interaktivni grafički interfejs sa opcijama izbora datuma i pretrage.
+## 📝 Key Features
 
----
+* User authentication and login system.
+* Create, update, and search parquet shipment records.
+* Multithreaded server handling multiple concurrent client requests.
+* Interactive graphical interface with date pickers and data tables.
 
-## 🔒 Napomena o bezbednosti
+## 🔒 Security Note
 
-Ovaj projekat je razvijen u edukativne/demonstracione svrhe sa **mock (testnim) podacima** na lokalnom okruženju (`localhost`).
+This repository is built for educational and demonstration purposes using **mock data** designed to run on a local environment (`localhost`).
